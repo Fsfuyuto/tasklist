@@ -4,12 +4,17 @@
 
 <!-- ここにページ毎のコンテンツを書く -->
 
+
     <h1> Task Detail</h1>
 
     <table class="table table-bordered">
         <tr>
             <th>Task</th>
             <td>{{ $task->content }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ $task->status }}</td>
         </tr>
     </table>
 
