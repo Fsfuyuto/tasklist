@@ -39,8 +39,13 @@
         </table>
     @endif
     
+
+    
     {{-- タスク作成ページへのリンク --}}
     {!! link_to_route('tasks.create', 'New Task', [], ['class' => 'btn btn-primary']) !!}
+   
+    
+    
 
 
 @endsection
