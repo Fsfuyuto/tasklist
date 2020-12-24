@@ -15,7 +15,7 @@ class AddTitleToStatusTable extends Migration
     {
         Schema::table('tasks', function (Blueprint $table) {
             
-            $table->string('status',10)->nullable();;
+            $table->string('status',10)->nullable();
             
         });
         
