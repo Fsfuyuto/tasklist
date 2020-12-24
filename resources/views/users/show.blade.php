@@ -1,23 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    @if (Auth::check())
-        
-        <div class="row">
-            <aside class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">{{ Auth::user()->name }}</h3>
-                    </div>
-                    <h1>Task List</h1>
 
+ <div class="center jumbotron">
+        <div class="text-center">
+            <h1>Welcome to the Tasklist</h1>
+            {{-- ユーザ登録ページへのリンク --}}
+            {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
+        </div>
+ </div>
+<h1>Task List</h1>
 
-   <table class="table table-striped">
+    @if (count($tasks) > 0)
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Todo</th>
                     <th>Status</th>
-                    <th></th>
                     <th></th>
             </thead>
             <tbody>
@@ -45,17 +44,13 @@
                 @endforeach
             </tbody>
         </table>
-       {{-- タスク作成ページへのリンク --}}
-       <div class="mt-3">
-        {!! link_to_route('tasks.create', 'New Task', [], ['class' => 'btn btn-primary']) !!}
-       </div>
-    @else
-        <div class="center jumbotron">
-            <div class="text-center">
-                <h1>Welcome to the Tasklist</h1>
-                {{-- ユーザ登録ページへのリンク --}}
-                {!! link_to_route('signup.get', 'Sign up now!', [], ['class' => 'btn btn-lg btn-primary']) !!}
-            </div>
-        </div>
     @endif
-@endsection
+    
+
+    
+    {{-- タスク作成ページへのリンク --}}
+    {!! link_to_route('tasks.create', 'New Task', [], ['class' => 'btn btn-primary']) !!}
+   
+    
+    
+
