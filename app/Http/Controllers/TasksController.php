@@ -88,11 +88,20 @@ class TasksController extends Controller
     {
        
         $task = Task::findOrFail($id);
+        if(\Auth::id()===$task->user_id){
+            $task->status;   
+            $task->content;
+        }
 
-        // メッセージ詳細ビューでそれを表示
+        
+
+        // // // メッセージ詳細ビューでそれを表示
         return view('tasks.show', [
             'task' => $task,
         ]);
+        
+        // トップページへリダイレクトさせる
+        // return redirect('/');
     }
 
     // getでtasks/（任意のid）/editにアクセスされた場合の「更新画面表示処理」
@@ -101,19 +110,22 @@ class TasksController extends Controller
         // // idの値でメッセージを検索して取得
         // $task = Task::findOrFail($id);
 
-        $task = \App\Task::findOrFail($id);
-        // // メッセージ編集ビューでそれを表示
-        return view('tasks.edit', [
-            'task' => $task,
-        ]);
-        
         // $task = \App\Task::findOrFail($id);
-        // // メッセージを削除
-        // if(\Auth::id()===$task->user_id){
-        //     return view('tasks.edit',[
-        //         'task'=>$task,
-        //         ]);
-        // }
+        // // // メッセージ編集ビューでそれを表示
+        // return view('tasks.edit', [
+        //     'task' => $task,
+        // ]);
+        
+        $task = \App\Task::findOrFail($id);
+        // メッセージを削除
+        if(\Auth::id()===$task->user_id){
+             $task->status;    // 追加
+             $task->content;
+        }
+        return view('tasks.edit',[
+                'task'=>$task,
+                ]);
+
 
         // // トップページへリダイレクトさせる
         // return redirect('/');
