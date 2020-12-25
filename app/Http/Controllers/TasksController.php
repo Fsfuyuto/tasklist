@@ -57,22 +57,30 @@ class TasksController extends Controller
         // // メッセージを作成
         $task = new Task;
         $task->status = $request->status;    // 追加
-        $task->user_id = $request->user_id;
+        // $task->user_id = $request->user_id;
         $task->content = $request->content;
         $task->save();
+        if(\Auth::id()===$task->user_id){
+           $task->status = $request->status;    // 追加
+           $task->content = $request->content;
+        //   $task->user_id = $request->user_id;
+           $task->save();
+        }
+        
+        
         
         // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
         $request->user()->tasks()->create([
             'status' => $request->status,
-            'user_id'=>$request->user_id,
+            // 'user_id'=>$request->user_id,
             'content' => $request->content,
         ]);
 
         
         // // 前のURLへリダイレクトさせる
-        // return back();
+        return back();
           // トップページへリダイレクトさせる
-        return redirect('/');
+        // return redirect('/');
     }
 
     // getでtasks/（任意のid）にアクセスされた場合の「取得表示処理」
@@ -90,13 +98,25 @@ class TasksController extends Controller
     // getでtasks/（任意のid）/editにアクセスされた場合の「更新画面表示処理」
     public function edit($id)
     {
-        // idの値でメッセージを検索して取得
-        $task = Task::findOrFail($id);
+        // // idの値でメッセージを検索して取得
+        // $task = Task::findOrFail($id);
 
-        // メッセージ編集ビューでそれを表示
+        $task = \App\Task::findOrFail($id);
+        // // メッセージ編集ビューでそれを表示
         return view('tasks.edit', [
             'task' => $task,
         ]);
+        
+        // $task = \App\Task::findOrFail($id);
+        // // メッセージを削除
+        // if(\Auth::id()===$task->user_id){
+        //     return view('tasks.edit',[
+        //         'task'=>$task,
+        //         ]);
+        // }
+
+        // // トップページへリダイレクトさせる
+        // return redirect('/');
     }
 
     // putまたはpatchでtasks/（任意のid）にアクセスされた場合の「更新処理」
@@ -106,17 +126,26 @@ class TasksController extends Controller
         // バリデーション
         $request->validate([
             'status' => 'required|max:10',   // 追加
-            'user_id'=> 'required',
+            // 'user_id'=> 'required',
             'content' => 'required|max:255',
         ]);
         
         // idの値でメッセージを検索して取得
-        $task = Task::findOrFail($id);
+        // $task = Task::findOrFail($id);
+        $task = \App\Task::findOrFail($id);
         // メッセージを更新
-        $task->status = $request->status;    // 追加
-        $task->content = $request->content;
-        $task->user_id = $request->user_id;
-        $task->save();
+        // $task->status = $request->status;    // 追加
+        // $task->content = $request->content;
+        // $task->user_id = $request->user_id;
+        // $task->save();
+        
+        if(\Auth::id()===$task->user_id){
+           $task->status = $request->status;    // 追加
+           $task->content = $request->content;
+        //   $task->user_id = $request->user_id;
+           $task->save();
+        }
+        
 
         // トップページへリダイレクトさせる
         return redirect('/');
@@ -126,9 +155,11 @@ class TasksController extends Controller
     public function destroy($id)
     {
       
-        $task = Task::findOrFail($id);
+        $task = \App\Task::findOrFail($id);
         // メッセージを削除
-        $task->delete();
+        if(\Auth::id()===$task->user_id){
+            $task->delete();
+        }
 
         // トップページへリダイレクトさせる
         return redirect('/');

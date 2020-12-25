@@ -8,10 +8,6 @@
     <div class="row">
         <div class="col-6">
             {!! Form::model($task, ['route' => ['tasks.update', $task->id], 'method' => 'put']) !!}
-                 <div class="form-group">
-                    {!! Form::label('user_id', 'User_id:') !!}
-                    {!! Form::text('user_id', null, ['class' => 'form-control']) !!}
-                </div>
 
                  <div class="form-group">
                     {!! Form::label('status', 'Status:') !!}
