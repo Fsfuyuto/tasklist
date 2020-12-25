@@ -31,6 +31,7 @@ class UsersController extends Controller
         //     ]);
         
         $user = User::findOrFail($id);
+        $user->loadRelationshipCount();
         
         
         $task = $user->tasks();

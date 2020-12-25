@@ -6,11 +6,11 @@
 
 
     <h1> Task Detail</h1>
-
     <table class="table table-bordered">
+    
         <tr>
             <th>Task</th>
-            <td>{{ $task->content }}</td>
+            <td>{{ $task->content}}</td>
         </tr>
         <tr>
             <th>Status</th>
@@ -25,8 +25,10 @@
      </div>
 
      {{-- タスク削除フォーム --}}
-    {!! Form::model( ['route' => ['tasks.destroy', $task->id], 'method' => 'delete']) !!}
-        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-    {!! Form::close() !!}
+      <form action="{{ action('TasksController@destroy', $task) }}" method="post">
+                    {{ csrf_field() }}
+                    {{ method_field('delete') }}
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
     </div>
 @endsection

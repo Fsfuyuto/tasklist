@@ -54,18 +54,18 @@ class TasksController extends Controller
             'content' => 'required|max:255',
         ]);
         
-        // // メッセージを作成
-        $task = new Task;
-        $task->status = $request->status;    // 追加
-        // $task->user_id = $request->user_id;
-        $task->content = $request->content;
-        $task->save();
-        if(\Auth::id()===$task->user_id){
-           $task->status = $request->status;    // 追加
-           $task->content = $request->content;
-        //   $task->user_id = $request->user_id;
-           $task->save();
-        }
+        // // // メッセージを作成
+        // $task = new Task;
+        // $task->status = $request->status;    // 追加
+        // // $task->user_id = $request->user_id;
+        // $task->content = $request->content;
+        // $task->save();
+        // if(\Auth::id()===$task->user_id){
+        //   $task->status = $request->status;    // 追加
+        //   $task->content = $request->content;
+        // //   $task->user_id = $request->user_id;
+        //   $task->save();
+        // }
         
         
         
